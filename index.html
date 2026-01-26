@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xun Wei & Chloe Wedding RSVP</title>
+  <!-- Preconnect for Google Fonts (Montserrat) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Import calligraphy and serif fonts to match Canva styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Global reset */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      /* Use Montserrat as the primary font; fall back to Arial if unavailable */
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      color: #5c0a0a;
+      min-height: 100vh;
+      /* Use a solid off‑white colour based on the save the date card's background. */
+      background: #f7f6f4;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .container {
+      width: 100%;
+      /* Increase max-width for desktop layouts to give more breathing room. */
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Top title styling */
+    .top-title {
+      text-align: center;
+      /* Provide extra spacing above the title so it is fully visible even at the top of the page */
+      margin-top: 40px;
+    }
+    .title-image {
+      /* The title image retains its aspect ratio and is enlarged relative to its natural size. */
+      display: block;
+      margin: 0 auto;
+      width: 80%;
+      max-width: 640px;
+      height: auto;
+    }
+
+    /* Layout wrapper: split the page into a left column (event info) and right column (RSVP forms).
+       On wider screens this creates a side-by-side view. On small screens the layout stacks vertically. */
+    .main-layout {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      width: 100%;
+    }
+    .left-pane {
+      /* Take up roughly 40% of the available width on larger screens so the event
+         details stay compact while leaving more room for the form. The flex-basis
+         ensures the pane doesn't shrink below this percentage. */
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin-right: 16px;
+    }
+    .right-pane {
+      /* Allocate the remaining space (about 60%) for the RSVP forms */
+      flex: 0 0 60%;
+      max-width: 60%;
+      /* Center the card contents horizontally within the right pane */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .right-pane.hidden {
+      display: none;
+    }
+    /* When on narrower screens, stack the panes vertically */
+    @media (max-width: 768px) {
+      .main-layout {
+        flex-direction: column;
+      }
+      .left-pane, .right-pane {
+        max-width: 100%;
+        margin-right: 0;
+      }
+    }
+
+    /* Hero section styles */
+    .hero {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      background-color: transparent;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      margin-top: 24px;
+    }
+
+    .hero-left {
+      flex: 1;
+      padding-right: 16px;
+    }
+    .hero-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-title {
+      /* Use a calligraphy-like script font for the main title */
+      font-family: 'Brush Script MT', 'Lucida Calligraphy', 'Segoe Script', 'Dancing Script', cursive;
+      font-size: 48px;
+      font-weight: normal;
+      margin-bottom: 8px;
+      color: #5c0a0a;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    .event-date {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #5c0a0a;
+    }
+    .event-time {
+      font-family: "Arial", sans-serif;
+      font-weight: normal;
+      font-size: 14px;
+      color: #5c0a0a;
+    }
+    .cta-desc {
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #5c0a0a;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+    }
+    .cta-button {
+      /* Use a solid olive colour instead of gradient */
+      background: #77824F;
+      color: #ffffff;
+      border: none;
+      border-radius: 24px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeInUp 1.2s ease-out 0.6s;
+      animation-fill-mode: backwards;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    .save-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInScale 1.2s ease-out 0.3s forwards;
+    }
+
+    /* Responsive adjustments for hero */
+    @media (max-width: 480px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-left, .hero-right {
+        padding: 0;
+        width: 100%;
+      }
+      .hero-right {
+        margin-top: 16px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+
+    .card {
+      /* Dark background for question cards with partial transparency.  Black with roughly 50% opacity allows the background
+         gradient to show through while still distinguishing the card. */
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      padding: 32px 24px;
+      margin-top: 40px;
+      text-align: center;
+      /* Limit the card width so it doesn't expand too wide on large screens */
+      max-width: 560px;
+      width: 100%;
+      /* Ensure text within the card is light enough to contrast with the dark background */
+      color: #f5f5f5;
+    }
+
+    .card h2 {
+      /* Use Garamond for form titles as requested */
+      font-family: 'EB Garamond', 'Times New Roman', serif;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #f5f5f5;
+    }
+
+    .card p {
+      /* Use Montserrat for descriptive text in cards but lighten colour for dark cards */
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #f5f5f5;
+    }
+
+    .input-group label {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 16px 0;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #ffffff;
+      /* Use a solid olive colour for all buttons */
+      background: #77824F;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: #BAB86C; /* olive highlight on focus */
+      box-shadow: 0 0 0 2px rgba(186, 184, 108, 0.3);
+    }
+
+    .radio-group {
+      margin: 20px 0;
+    }
+    .radio-group label {
+      font-weight: normal;
+      margin-right: 16px;
+    }
+    /* Styles for heart selection options */
+    .heart-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .heart-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .heart-option input {
+      display: none;
+    }
+
+    .heart-text {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1.2;
+      /* Default background uses the off‑white page colour; variant classes override this */
+      background: #f7f6f4;
+      /* Add a subtle dark border to delineate the circle; variant classes override colour if needed */
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      color: #5c0a0a;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+    }
+
+    .heart-option input:checked + .heart-text {
+      background: radial-gradient(circle at 50% 50%, #BAB86C 0%, #7a753f 100%);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* When a heart group has the class 'vertical', arrange the hearts one below the other */
+    .heart-group.vertical {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .success-message {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #004400;
+    }
+
+    /* Style the placeholder text to match the site's typography */
+    input::placeholder,
+    textarea::placeholder {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 14px;
+      /* Lighten placeholder colour for readability on dark cards */
+      color: #c8c2b4;
+    }
+
+    /* Partiful-style container and event details */
+    .partiful-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .event-left {
+      /* Flex item takes up half of the container on larger screens */
+      flex: 1 1 50%;
+      min-width: 300px;
+      /* Allow the left panel to expand beyond 480px when container is wider */
+      max-width: none;
+      padding: 16px;
+      /* Center all text horizontally within the left event column */
+      text-align: center;
+      /* Use flexbox to center child elements and stack them vertically */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Ensure text within the event details column is centered */
+    .event-left h1,
+    .event-left p {
+      width: 100%;
+      text-align: center;
+    }
+
+    .event-right {
+      flex: 1 1 50%;
+      min-width: 300px;
+      /* Allow the right panel to expand with the container width */
+      max-width: none;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-title {
+      /* Make the event title large and elegant using the Malibu Ring style (approximated with Great Vibes) */
+      font-family: 'Great Vibes', cursive;
+      font-size: 90px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1e1b12;
+    }
+
+    /* Force lowercase styling for the two-line event title */
+    .lowercase-title {
+      text-transform: lowercase;
+    }
+
+    .event-date {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      /* Increase font size by approximately 50% for greater prominence */
+      font-size: 50px;
+      margin: 4px 0;
+      color: #5c0a0a;
+    }
+
+    .event-time {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 21px;
+      margin: 4px 0;
+      color: #5c0a0a;
+    }
+
+    .tags {
+      margin: 8px 0;
+    }
+    .tag {
+      display: inline-block;
+      background: #e8e2c4;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #5c0a0a;
+      margin-right: 8px;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+    }
+
+    .event-actions {
+      margin-top: 8px;
+    }
+    .action-button {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 14px;
+      background: #f6f4cd;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 16px;
+      color: #5c0a0a;
+      margin-right: 8px;
+      cursor: not-allowed;
+    }
+
+    .host-info {
+      margin: 12px 0;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 14px;
+      color: #5c0a0a;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rsvp-prompt {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #5c0a0a;
+      margin: 12px 0;
+    }
+
+    .event-schedule {
+      margin-top: 20px;
+    }
+    .section-title {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e1b12;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+    .schedule-item {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 14px;
+      margin-left: 16px;
+      color: #5c0a0a;
+    }
+
+    .cover-image {
+      width: 100%;
+      height: 300px;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: transparent;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .cover-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .heart-options {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .heart-option {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      padding: 8px;
+      /* Remove default button styles when used on buttons */
+      border: none;
+      outline: none;
+    }
+    .heart-option .heart {
+      font-size: 40px;
+    }
+    .heart-option .label {
+      font-size: 14px;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      margin-top: 4px;
+    }
+    /* Remove default radial gradient backgrounds from going/can't-go buttons.
+       Colour definitions for going and not-going hearts are defined later. */
+    .heart-option:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Custom colours for RSVP going/not going hearts on the question pages */
+    /* Custom colours and border for RSVP going/not going hearts.  Each button has a semi-transparent dark border
+       around a solid olive green interior.  The 'not going' option uses a darker olive shade to subtly encourage
+       the affirmative response. */
+    .heart-option.going {
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      background: #77824F;
+      color: #ffffff;
+    }
+    .heart-option.going .heart-text {
+      background: #77824F;
+      color: #ffffff;
+    }
+    .heart-option.not-going {
+      border: 2px solid rgba(0, 0, 0, 0.4);
+      background: #5c6a33;
+      color: #ffffff;
+    }
+    .heart-option.not-going .heart-text {
+      background: #5c6a33;
+      color: #ffffff;
+    }
+
+    /* Style the plus‑one yes/no hearts.  They use the same circular shape as the going/not going hearts
+       but retain the olive green colour for both options. */
+    #page8 .heart-option {
+      border: 2px solid rgba(0, 0, 0, 0.4);
+    }
+    #page8 .heart-option .heart-text {
+      background: #77824F;
+      color: #ffffff;
+    }
+
+    /* Container to hold the single RSVP button on the main page */
+    .rsvp-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    /* Event details shown on the RSVP question pages */
+    .event-details {
+      margin: 0.5rem 0 1rem 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      /* Use light text on dark cards */
+      color: #f5f5f5;
+    }
+
+    /* Schedule details shown on the guest details page after selecting a name */
+    .schedule-info {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 1rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #4a4a4a;
+    }
+    .schedule-info .schedule-section {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Style the attendance drop-down on the Group C page */
+    #attendanceOption {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Layout for the question pages: stack content vertically on small screens,
+       and place question text/details on the left with RSVP controls on the right for wider screens */
+    .question-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .question-left {
+      flex: 1;
+    }
+    .question-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* For screens wider than 768px, switch to a horizontal layout */
+    @media (min-width: 768px) {
+      .question-container {
+        flex-direction: row;
+        align-items: center;
+      }
+      .question-left {
+        flex: 1;
+      }
+      .question-right {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+  
+    .custom-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 88px;
+      font-weight: 400;
+      color: #7a7f3a; /* pastel olive green */
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .custom-title {
+        font-size: 56px;
+      }
+    }
+
+
+    /* --- Intro layout (centered) + transition to split layout --- */
+    body.layout-collapsed .main-layout { justify-content: center; }
+    body.layout-collapsed .left-pane {
+      flex: 0 0 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      transition: flex-basis 0.6s ease, max-width 0.6s ease;
+    }
+    body.layout-collapsed #rightPane { display: none; }
+
+    body.layout-expanded .left-pane {
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin-right: 16px;
+      transition: flex-basis 0.6s ease, max-width 0.6s ease;
+    }
+    body.layout-expanded #rightPane {
+      display: flex;
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* After expanding: left-align the intro text block on the right */
+    body.layout-expanded .event-right { align-items: flex-start; text-align: left; }
+    body.layout-expanded .event-right .event-date,
+    body.layout-expanded .event-right .location-hint,
+    body.layout-expanded .event-right .rsvp-prompt {
+      text-align: left;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* Cover image when placed on the left */
+    .event-left .cover-image { max-width: 520px; width: 100%; }
+
+    /* Typography tweaks */
+    .event-date { font-size: 42px; } /* smaller */
+    .location-hint { font-size: 15px; font-weight: 500; } /* bigger */
+
+    /* Back button */
+    .card { position: relative; }
+    .back-btn {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.25);
+      color: #f5f5f5;
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      z-index: 5;
+    }
+    .back-btn:hover { transform: translateY(-1px); background: rgba(0,0,0,0.35); }
+    .back-icon { font-size: 16px; line-height: 1; }
+
+    /* Page transition: exit */
+    .card.exit { animation: fadeOutDown 0.25s ease-in forwards; }
+    @keyframes fadeOutDown {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(10px); }
+    }
+
+
+/* =========================
+   Apple‑style polish pass
+   (desktop-first)
+   ========================= */
+:root{
+  --bg: #f7f6f4;
+  --card-bg: rgba(255,255,255,0.62);
+  --card-bg-dark: rgba(20,20,20,0.55);
+  --stroke: rgba(255,255,255,0.45);
+  --stroke-dark: rgba(255,255,255,0.18);
+  --shadow: 0 18px 55px rgba(0,0,0,0.14);
+  --shadow-soft: 0 10px 28px rgba(0,0,0,0.10);
+  --text: #2c1b16;
+  --text-sub: rgba(44,27,22,0.72);
+  --text-on-dark: rgba(255,255,255,0.92);
+  --accent: #77824F;        /* your olive */
+  --accent-dark: #5c6a33;
+  --focus: rgba(120, 152, 255, 0.45);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+}
+
+body{
+  /* Apple-like system font stack */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 800px at 10% 0%, rgba(186,184,108,0.25) 0%, rgba(247,246,244,0.0) 60%),
+    radial-gradient(1200px 800px at 90% 20%, rgba(119,130,79,0.18) 0%, rgba(247,246,244,0.0) 55%),
+    linear-gradient(180deg, #f8f7f4 0%, #f4f2ee 100%);
+}
+
+.container{
+  max-width: 1040px;
+}
+
+.top-title{
+  margin-top: 28px;
+}
+
+.custom-title{
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.55);
+}
+
+/* Make the left page block feel like a single “sheet” */
+.partiful-container{
+  gap: 20px;
+}
+
+.cover-image{
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  background: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Right-side intro text: tighter + more premium spacing */
+.event-date{
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+.location-hint{
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  color: var(--text-sub);
+}
+.rsvp-prompt{
+  color: var(--text-sub);
+}
+
+/* Buttons: iOS pill style */
+.button, .cta-button{
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  background: linear-gradient(180deg, rgba(119,130,79,1) 0%, rgba(92,106,51,1) 100%);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.button:hover, .cta-button:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+  filter: brightness(1.02);
+}
+.button:active, .cta-button:active{
+  transform: translateY(0px) scale(0.985);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+
+/* RSVP “cards”: frosted glass dark */
+.card{
+  border-radius: var(--radius-xl);
+  background: rgba(22,22,22,0.55);
+  border: 1px solid var(--stroke-dark);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.card h2{
+  letter-spacing: -0.4px;
+}
+.card p, .event-details{
+  color: var(--text-on-dark);
+}
+
+/* Inputs: iOS-like fields */
+select, input[type="text"], textarea{
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.82);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+  transition: box-shadow .18s ease, border-color .18s ease, transform .18s ease;
+}
+select:focus, input[type="text"]:focus, textarea:focus{
+  border-color: rgba(120,152,255,0.65);
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+/* Heart buttons: soften edges + improve tap feel */
+.heart-option{
+  border-radius: 999px;
+}
+.heart-option.going, .heart-option.not-going{
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+}
+.heart-option.going:active, .heart-option.not-going:active{
+  transform: scale(0.985);
+}
+
+/* Back button: iOS “capsule” with blur */
+.back-btn{
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Reduce animation if user prefers */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+
+/* Small spacing tweak: pull date closer to the image */
+.event-right .event-date{
+  margin-top: 4px;   /* was larger via inherited spacing */
+}
+
+
+/* Further pull date closer to the image */
+.event-right .event-date{
+  margin-top: -6px; /* move up more */
+}
+
+
+/* =========================
+   Website polish: Partiful/Luma/Apple feel
+   ========================= */
+
+/* Subtle grain + glow layer */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 15% 10%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 60%),
+    radial-gradient(800px 520px at 85% 25%, rgba(119,130,79,0.18) 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(700px 520px at 60% 90%, rgba(186,184,108,0.15) 0%, rgba(255,255,255,0) 60%),
+    repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.018) 0 1px, rgba(0,0,0,0) 1px 3px);
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
+  z-index: 0;
+}
+.container{ position: relative; z-index: 1; }
+
+/* Softer column separation */
+.main-layout{
+  gap: 26px;
+}
+
+
+/* Card hover: subtle lift */
+.card{
+  transform: translateY(0);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 22px 70px rgba(0,0,0,0.18);
+  border-color: rgba(255,255,255,0.28);
+}
+
+
+/* Micro: nicer section spacing inside cards */
+.card h2{
+  margin-top: 14px;
+}
+.input-group input, .input-group select, textarea{
+  padding: 12px 12px;
+}
+
+
+/* Liquid progress bar (replaces dotted stepper) */
+.stepper{
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.20);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+  margin: 2px 0 14px 6px;
+}
+.liquid-track{
+  position: relative;
+  width: 240px;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+}
+.liquid-fill{
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background:
+    radial-gradient(12px 10px at 10% 50%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(90deg, rgba(186,184,108,0.95) 0%, rgba(119,130,79,1) 45%, rgba(92,106,51,1) 100%);
+  background-size: 34px 22px, 100% 100%;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  transition: width 520ms cubic-bezier(.2,.9,.2,1);
+}
+.liquid-fill::after{
+  content:"";
+  position:absolute;
+  inset:-8px -30px -8px -30px;
+  background:
+    radial-gradient(22px 14px at 20% 50%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 65%),
+    radial-gradient(18px 12px at 50% 55%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 65%),
+    radial-gradient(22px 14px at 80% 50%, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 65%);
+  opacity: 0.9;
+  animation: liquidWobble 1.35s ease-in-out infinite;
+  mix-blend-mode: soft-light;
+}
+.liquid-gloss{
+  position:absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0));
+  pointer-events:none;
+}
+@keyframes liquidWobble{
+  0%{ transform: translateX(-10px); }
+  50%{ transform: translateX(10px); }
+  100%{ transform: translateX(-10px); }
+}
+@media (max-width: 520px){
+  .liquid-track{ width: 200px; }
+}
+
+
+/* Custom name dropdown (2+ chars, no click/focus) */
+.name-suggestions{
+  position:absolute;
+  left:0;
+  right:0;
+  top: calc(100% + 8px);
+  z-index: 60;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.92);
+  max-height: 240px;
+  overflow-y: auto;
+}
+.name-suggestions.hidden{ display:none !important; }
+.name-suggestions .item{
+  padding: 12px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #111;
+}
+.name-suggestions .item:hover{ background: rgba(0,0,0,0.06); }
+
+
+/* Dropdown panel directly under name input (overlaps below, does not push layout) */
+.name-suggestions{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 100;
+  margin-top: 0;
+}
+
+
+/* Anchor dropdown exactly under the Name input */
+.input-wrap{
+  position: relative;
+}
+.input-wrap .name-suggestions{
+  top: calc(100% + 6px);
+}
+
+
+/* Final anchor enforcement */
+.input-wrap{
+  position: relative !important;
+}
+.input-wrap > .name-suggestions{
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 999;
+}
+
+
+
+/* =========================
+   Responsive merge: simplified mobile (<= 600px)
+   ========================= */
+@media (max-width: 600px) {
+
+/* Keep question box width consistent across all questions (mobile only) */
+.card{
+  max-width: 92vw;
+  width: 92vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Ensure hidden cards stay hidden on mobile (prevents all questions showing at once) */
+.card.hidden{ display: none !important; }
+
+
+  /* reduce visual noise for small screens */
+  body::before{ opacity: 0.35; }
+
+  .container{ padding: 14px; }
+  .top-title{ margin-top: 16px; }
+  .custom-title{ font-size: 46px; line-height: 1.0; }
+
+  /* stack everything naturally */
+  .main-layout{ gap: 18px; }
+  .partiful-container{ flex-direction: column; gap: 14px; }
+  .event-left, .event-right{ min-width: 0; width: 100%; padding: 10px; }
+
+  /* image + date tighter */
+  .cover-image{ height: auto; }
+  .event-right .event-date{ font-size: 32px; margin-top: 6px; }
+  .location-hint{ font-size: 14px; }
+  .rsvp-prompt{ font-size: 14px; }
+
+  /* cards: lighter + tighter */
+  .card{
+    min-height: 520px; /* FORCE equal height for all question sections */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .card h2{ font-size: 26px; margin-bottom: 10px; }
+  .card p{ font-size: 15px; }
+
+  /* stepper smaller */
+  .stepper{ margin: 0 0 10px 0; }
+  .liquid-track{ width: 170px; height: 10px; }
+
+  /* inputs/buttons: easier tapping */
+  select, input[type="text"], textarea{ font-size: 16px; }
+  .button{ width: 100%; text-align: center; padding: 14px 18px; }
+
+  /* RSVP hearts: smaller, single row, less spacing */
+  .heart-group{ gap: 12px; margin: 18px 0; }
+  .heart-option{ width: 108px; height: 108px; }
+  .heart-text{ width: 84px; height: 84px; font-size: 13px; }
+
+  /* Back button: slightly bigger for thumbs */
+  .back-btn{ top: 12px; left: 12px; padding: 10px 12px; font-size: 14px; }
+
+  /* Name dropdown: keep within viewport */
+  .name-suggestions{ max-height: 200px; }
+
+/* MOBILE ONLY: keep intro section unchanged when RSVP opens */
+body.layout-expanded .left-pane{
+  flex: 1 0 100%;
+  max-width: 100%;
+  margin-right: 0;
+}
+body.layout-expanded .event-right{
+  align-items: center;
+  text-align: center;
+}
+body.layout-expanded .event-right .event-date,
+body.layout-expanded .event-right .location-hint,
+body.layout-expanded .event-right .rsvp-prompt{
+  text-align: center;
+  width: auto;
+}
+body.layout-expanded #rightPane{
+  display: flex;
+  opacity: 1;
+  transform: none;
+}
+}
+
+
+/* === MOBILE-ONLY FIXES (DO NOT AFFECT DESKTOP) === */
+@media (max-width: 600px){
+
+  /* 1 & 2. Keep EVERYTHING horizontally centered on main page and after RSVP */
+  .main-layout,
+  .left-pane,
+  .right-pane,
+  .partiful-container,
+  .event-left,
+  .event-right {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .event-right p,
+  .event-right .rsvp-prompt {
+    text-align: center !important;
+  }
+
+  /* 3. Ensure Back button never blocks content */
+  .card {
+    padding-top: 56px !important;
+  }
+
+  .back-btn {
+    top: 16px !important;
+    left: 16px !important;
+  }
+}
+
+
+/* Sequential reveal for question content (appears one-by-one) */
+.reveal-seq > *{
+  opacity: 0;
+  transform: translateY(10px);
+  animation: seqFadeUp 0.45s ease-out forwards;
+}
+.reveal-seq > *:nth-child(1){ animation-delay: 0.00s; }
+.reveal-seq > *:nth-child(2){ animation-delay: 0.08s; }
+.reveal-seq > *:nth-child(3){ animation-delay: 0.16s; }
+.reveal-seq > *:nth-child(4){ animation-delay: 0.24s; }
+.reveal-seq > *:nth-child(5){ animation-delay: 0.32s; }
+.reveal-seq > *:nth-child(6){ animation-delay: 0.40s; }
+.reveal-seq > *:nth-child(7){ animation-delay: 0.48s; }
+.reveal-seq > *:nth-child(8){ animation-delay: 0.56s; }
+.reveal-seq > *:nth-child(9){ animation-delay: 0.64s; }
+
+@keyframes seqFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body class="layout-collapsed">
+  <div class="container">
+    <!-- Top title: centre aligned calligraphy image for the event title -->
+    <div class="top-title">
+      <h1 class="custom-title">Xun Wei &amp; Chloe Wedding</h1>
+    </div>
+    <div class="main-layout">
+      <!-- Left Pane: event info and RSVP button -->
+      <div class="left-pane">
+        <div class="partiful-container" id="page1">
+          <!-- Left side: event details -->
+          <div class="event-left">
+            
+            <div class="cover-image">
+              <img src="save_date_user.png" alt="Save the date card">
+            </div>
+          </div>
+          <!-- Right side: image and RSVP button -->
+          <div class="event-right">
+            <!-- The event title is now displayed at the very top of the page via an image. -->
+            <p class="event-date">Saturday, Oct&nbsp;10&nbsp;2026</p>
+            <p class="location-hint">📍RSVP to see full location</p>
+            <!-- Remove the overall event time line entirely as requested -->
+            <p class="rsvp-prompt">You are invited to our wedding! Kindly RSVP before 31st&nbsp;August&nbsp;2026.</p>
+            <div class="rsvp-button-container">
+              <!-- Single RSVP button replaces the previous Going/Can't go options -->
+              <button type="button" class="button" id="rsvpBtn">RSVP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right Pane: RSVP forms -->
+      <div class="right-pane hidden" id="rightPane">
+        
+        <div class="stepper" aria-label="RSVP progress">
+          <div class="liquid-track" aria-hidden="true">
+            <div id="liquidFill" class="liquid-fill"></div>
+            <div class="liquid-gloss"></div>
+          </div>
+        </div>
+<!-- Page 2: Guest Details -->
+        <div id="page2" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <h2>Guest Details</h2>
+          <form id="guestForm" onsubmit="return false;">
+            <div class="input-group">
+              <label for="guestNameInput">Your Name</label>
+              <!-- Using an input with datalist enables search-as-you-type functionality. -->
+              <input id="guestNameInput" type="text" placeholder="Start typing your name..." required />
+              <div id="nameSuggestions" class="name-suggestions hidden" role="listbox" aria-label="Name suggestions"></div>
+<datalist id="guestNames"></datalist>
+            </div>
+            <div class="input-group">
+              <label for="phone">Phone Number</label>
+              <input type="text" id="phone" placeholder="e.g. +60 123-456-789" required />
+            </div>
+            <div class="input-group">
+              <!-- Move directly to attendance questions after capturing guest details. -->
+              <button type="button" class="button" onclick="proceedToAttendance()">Next</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Page 8: +1 Question (Are you bringing any +1s?) -->
+        <div id="page8" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <h2>Are you bringing a +1?</h2>
+          <div class="radio-group heart-group">
+            <label class="heart-option">
+              <input type="radio" name="plusOneQuestion" value="Yes" onchange="handlePlusOne(true)">
+              <span class="heart-text">💑<br>Yes</span>
+            </label>
+            <label class="heart-option">
+              <input type="radio" name="plusOneQuestion" value="No" onchange="handlePlusOne(false)">
+              <span class="heart-text">💔<br>No</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Page 3: +1 Details -->
+        <div id="page3" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <h2>+1 Details</h2>
+          <div class="input-group">
+            <label for="plusOneName">+1 Name</label>
+            <input type="text" id="plusOneName" placeholder="Enter your guest's name" />
+          </div>
+          <button class="button" onclick="submitPlusOneDetails()">Next</button>
+        </div>
+
+        <!-- Page 4: Church Wedding (Group A) -->
+        <div id="page4" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <!-- Use a unified heading for RSVP questions -->
+          <h2>Can you attend?</h2>
+          <p>Can you attend our Church Wedding on 10th October 2026 at 2:00&nbsp;pm?</p>
+          <!-- Event details for the church ceremony -->
+          <p class="event-details">
+            <strong>Church Wedding</strong><br>
+            Community Baptist Church, Sea Park<br>
+            2:00&nbsp;PM – 4:00&nbsp;PM<br>
+            10 October 2026
+          </p>
+          <div class="radio-group heart-group">
+            <button type="button" class="heart-option going" onclick="handleAttendance('church','Yes')">
+              <span class="heart-text">❤️<br>Going</span>
+            </button>
+            <button type="button" class="heart-option not-going" onclick="handleAttendance('church','No')">
+              <span class="heart-text">💔<br>Not Going</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Page 6: Wedding Dinner (Group B) -->
+        <div id="page6" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <!-- Use a unified heading for RSVP questions -->
+          <h2>Can you attend?</h2>
+          <p>Can you attend our Wedding Dinner on 10th October 2026 at 6:30&nbsp;pm?</p>
+          <!-- Event details for the dinner reception -->
+          <p class="event-details">
+            <strong>Wedding Dinner</strong><br>
+            The Glass Box, Colony @ The MET, Mont Kiara<br>
+            6:30&nbsp;PM – 10:30&nbsp;PM<br>
+            10 October 2026
+          </p>
+          <div class="radio-group heart-group">
+            <button type="button" class="heart-option going" onclick="handleAttendance('dinner','Yes')">
+              <span class="heart-text">❤️<br>Going</span>
+            </button>
+            <button type="button" class="heart-option not-going" onclick="handleAttendance('dinner','No')">
+              <span class="heart-text">💔<br>Not Going</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Page 7: Church + Dinner (Group C) -->
+        <div id="page7" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <h2>Can you attend?</h2>
+          <!-- Event details for both ceremonies -->
+          <p class="event-details">
+            <strong>Church Wedding</strong><br>
+            Community Baptist Church, Sea Park<br>
+            2:00&nbsp;PM – 4:00&nbsp;PM<br>
+            10 October 2026
+          </p>
+          <p class="event-details">
+            <strong>Wedding Dinner</strong><br>
+            The Glass Box, Colony @ The MET, Mont Kiara<br>
+            6:30&nbsp;PM – 10:30&nbsp;PM<br>
+            10 October 2026
+          </p>
+          <p>Please select which of the events you can attend:</p>
+          <div class="input-group">
+            <label for="attendanceOption">Attendance Options</label>
+            <select id="attendanceOption" required>
+              <option value="" disabled selected>Select one...</option>
+              <option value="churchOnly">I can attend Church Wedding only</option>
+              <option value="dinnerOnly">I can attend Wedding Dinner only</option>
+              <option value="both">I can attend both Church Wedding and Dinner</option>
+            </select>
+          </div>
+          <button class="button" onclick="handleGroupCAttendance()">Next</button>
+        </div>
+
+        <!-- Page 5: Notes + Submit -->
+        <div id="page5" class="card hidden">
+          <button type="button" class="back-btn" onclick="goBack()" aria-label="Back">
+            <span class="back-icon" aria-hidden="true">←</span><span class="back-text">Back</span>
+          </button>
+          <h2>Additional Notes</h2>
+          <div class="input-group">
+            <label for="notes">Any notes you want to leave to the couple?</label>
+            <textarea id="notes" rows="4" placeholder="Write your message here..."></textarea>
+          </div>
+          <button class="button" onclick="submitRSVP()">Submit RSVP</button>
+          <div id="confirmation" class="success-message hidden"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    /*
+      RSVP flow implemented in plain JavaScript.
+      - Centered intro layout
+      - After clicking RSVP: shift to split layout and show questions
+      - Back button on every page (history-based)
+      - Page transitions between questions
+    */
+
+    // Sample guest list mapping names to invite group codes.
+    const guestList = {
+  // Church Only
+  "Pastor Malcolm Atkingson": "A",
+  "Pastor Reynold Lim": "A",
+  "Pastor Charmaine Chen": "A",
+  "Ivan Chong": "A",
+  "Charlotte Lai": "A",
+  "Saw Yet Chien": "A",
+  "Chai Peng": "A",
+  "Janie Set": "A",
+  "Alice": "A",
+  "Vivian": "A",
+  "Janice Quey": "A",
+  "Ah Yee": "A",
+  "Eric Wong": "A",
+  "Eryn Keong": "A",
+  "Elder Andrew Teh": "A",
+  "Ivy Chua": "A",
+  "Crystal Lee": "A",
+  "Danny": "A",
+  "Mandy Chiang": "A",
+  "David Chiang": "A",
+  "Grace Chiang": "A",
+  "Solomen Chiang": "A",
+
+  // Church & Dinner
+  "Irene Low": "C",
+  "Richard Chock": "C",
+  "Leonard Chock": "C",
+  "Chin Zheng Yu": "C",
+  "Eunice Chock": "C",
+  "Gilbert Low": "C",
+  "Jimmy Teh": "C",
+  "Serene Teh": "C",
+  "Lee Mei Chue": "C",
+  "Yesmine Chee": "C",
+  "John Ng": "C",
+  "Veronica Ee": "C",
+  "Gabriella Ee": "C",
+  "Samuel Ee": "C",
+  "Angeline Phang": "C",
+  "Jonathan Phang": "C",
+  "Lim Zhi En": "C",
+  "Tan Pei Yick": "C",
+  "Joshua Low": "C",
+  "Alex Soong": "C",
+  "Maeve Mok": "C",
+  "Sally Too": "C",
+  "Caleb Chong": "C",
+  "Eunice Lai": "C",
+  "Law Yew Jun": "C",
+  "Ngai Kah Yue": "C",
+  "Barney Lai": "C",
+  "Ho Li Ying": "C",
+  "Cheah Yik Hin": "C",
+  "Soong Tian Yun": "C",
+  "James Ng": "C",
+  "Tai Bik Yee": "C",
+  "Chong Foo Meng": "C",
+  "Chong Min Xi": "C",
+  "Hazel Choong": "C",
+  "CJ Ng": "C",
+  "Gwenyth Ng": "C",
+  "Choong Pei Fen": "C",
+  "Michelle Boey": "C",
+  "Chow Teck Choy": "C",
+  "Christine Lim": "C",
+  "Mei Yu": "C",
+  "Claudine Teh": "C",
+  "Mary Kuan": "C",
+  "Aaron Chong": "C",
+  "Jovin Lee": "C",
+  "Joseph Tan": "C",
+  "Ruth Yong": "C",
+  "Qara Tan": "C",
+  "Liang Yu Heng": "C",
+  "Lee Kah Kei": "C",
+  "Yap Jia Le": "C",
+  "Vivian Lim": "C",
+  "Lee Ming En": "C",
+  "Esther Chee": "C",
+  "Michael Lin": "C",
+  "Joseph Wong": "C",
+  "Goh Sow Yee": "C",
+  "Moses Wong": "C",
+  "Noah Wong": "C",
+  "Choow Kam Bah": "C",
+  "Choi Lin": "C",
+  "Dony Tong": "C",
+  "Crystal": "C",
+  "Tony Lee": "C",
+  "Ann Lai": "C",
+  "Faith Ho": "C",
+  "Simone Phang": "C",
+  "Francis Lai": "C",
+  "Ng Shi Qi": "C",
+  "Elder Ong See Lian": "C",
+  "May Ong": "C",
+  "Alex Lee": "C",
+  "Evelyn Chow": "C",
+  "Wong Khai Hiin": "C",
+  "Shereen": "C",
+  "Andrew Loe": "C",
+  "New Yi Fei": "C",
+  "Ke Yang": "C",
+  "Lim Hong Liang": "C",
+  "Sunny Lim": "C",
+  "Choo Kein Wayn": "C",
+  "Chee Kien Yue": "C",
+  "Yaw Pui Yeing": "C",
+  "Lew Jin Hui": "C",
+  "Von Zi Yan": "C",
+  "Ng Li Xin": "C",
+  "Chong Yan Zi": "C",
+  "Chin Mei Shin": "C",
+
+      // Dinner Only
+  "Maria": "B",
+  "Tiffany Low": "B",
+  "Lim Davy": "B",
+  "Kelly Tew": "B",
+  "Joey Lim": "B",
+  "Joshua Swee": "B",
+  "Winnie Ng": "B",
+  "Alan Soon": "B",
+  "Venness Sim": "B",
+  "Joey Leong": "B",
+  "Caryn Yeh": "B",
+  "Connie Goh": "B"
+};
+
+    // Store RSVP answers until submission
+    let rsvpData = {
+      guestName: null,
+      phone: null,
+      bringingPlusOne: false,
+      plusOneName: null,
+      inviteGroup: null,
+      churchAttendance: null,
+      dinnerAttendance: null,
+      notes: null
+    };
+
+    // Back history stack
+    let pageHistory = [];
+
+    function populateGuestNames() {
+      const list = document.getElementById('guestNames');
+      if (!list) return;
+      list.innerHTML = '';
+      Object.keys(guestList).forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        list.appendChild(option);
+      });
+    }
+
+    function expandLayout() {
+      document.body.classList.remove('layout-collapsed');
+      document.body.classList.add('layout-expanded');
+      const rightPane = document.getElementById('rightPane');
+      if (rightPane) rightPane.classList.remove('hidden');
+    }
+
+    function collapseLayout() {
+      document.body.classList.remove('layout-expanded');
+      document.body.classList.add('layout-collapsed');
+      pageHistory = [];
+      const rightPane = document.getElementById('rightPane');
+      if (rightPane) rightPane.classList.add('hidden');
+      // Hide all pages
+      ['page2','page3','page4','page5','page6','page7','page8'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.add('hidden'); el.classList.remove('exit'); }
+      });
+            updateStepper('');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateStepper(activePageId) {
+      // 5-step flow: Name -> Attendance -> +1 -> Notes -> Done
+      const fill = document.getElementById('liquidFill');
+      if (!fill) return;
+
+      let pct = 0;
+
+      if (activePageId === 'page2') pct = 20;                                  // guest details
+      else if (activePageId === 'page4' || activePageId === 'page6' || activePageId === 'page7') pct = 40; // attendance
+      else if (activePageId === 'page8' || activePageId === 'page3') pct = 60; // +1 question/details
+      else if (activePageId === 'page5') pct = 80;                             // notes
+      else if (activePageId === 'done') pct = 100;                             // submitted
+      else pct = 0;                                                            // collapsed / start
+
+      fill.style.width = pct + '%';
+    }
+
+    function showPage(pageId, fromBack = false) {
+      const pages = ['page2','page3','page4','page5','page6','page7','page8'];
+
+      // Find current visible page
+      let currentVisible = null;
+      pages.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !el.classList.contains('hidden')) currentVisible = id;
+      });
+
+      // Push history if moving forward
+      if (!fromBack && currentVisible && currentVisible !== pageId) {
+        pageHistory.push(currentVisible);
+      }
+
+      const nextPage = document.getElementById(pageId);
+      if (!nextPage) return;
+
+      
+      updateStepper(pageId);
+const rightPane = document.getElementById('rightPane');
+      if (document.body.classList.contains('layout-expanded')) {
+        if (rightPane && rightPane.classList.contains('hidden')) rightPane.classList.remove('hidden');
+      }
+
+      const showNext = () => {
+        pages.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) { el.classList.add('hidden'); el.classList.remove('exit'); }
+        });
+
+        nextPage.classList.remove('hidden');
+        nextPage.classList.remove('exit');
+
+// Make the question content appear one-by-one
+// Mobile: use JS-stagger (more reliable on iOS/Android), Desktop: keep existing CSS reveal sequence
+if (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
+  const kids = Array.from(nextPage.children || []);
+  const seq = kids.filter(el => !el.classList.contains('back-btn'));
+  // reset + hide
+  seq.forEach(el => {
+    el.style.transition = 'none';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(10px)';
+  });
+  // force reflow
+  void nextPage.offsetHeight;
+  // reveal with stagger
+  seq.forEach((el, idx) => {
+    el.style.transition = 'opacity 0.45s ease-out, transform 0.45s ease-out';
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, idx * 120);
+  });
+} else {
+  // Desktop behavior (unchanged)
+  nextPage.classList.remove('reveal-seq');
+  // force reflow so the animation restarts each time
+  void nextPage.offsetWidth;
+  nextPage.classList.add('reveal-seq');
+}
+nextPage.style.animation = 'none';
+        void nextPage.offsetWidth;
+        nextPage.style.animation = 'fadeInUp 0.45s ease-out';
+
+        if (typeof nextPage.scrollIntoView === 'function') {
+          nextPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      if (currentVisible) {
+        const currentEl = document.getElementById(currentVisible);
+        if (currentEl) {
+          currentEl.classList.add('exit');
+          setTimeout(showNext, 260);
+          return;
+        }
+      }
+
+      showNext();
+    }
+
+    function goBack() {
+      if (pageHistory.length === 0) {
+        collapseLayout();
+        return;
+      }
+      const prev = pageHistory.pop();
+      showPage(prev, true);
+    }
+
+    function startGoing() {
+      // Reset RSVP data
+      rsvpData = {
+        guestName: null,
+        phone: null,
+        bringingPlusOne: false,
+        plusOneName: null,
+        inviteGroup: null,
+        churchAttendance: null,
+        dinnerAttendance: null,
+        notes: null
+      };
+      pageHistory = [];
+      expandLayout();
+      updateStepper('page2');
+      showPage('page2', true);
+
+// Mobile-friendly auto-scroll to the question/form area after opening RSVP
+// (keeps the intro section unchanged; only scrolls the viewport)
+setTimeout(() => {
+  const p2 = document.getElementById('page2');
+  const rp = document.getElementById('rightPane');
+  const target = (p2 && !p2.classList.contains('hidden')) ? p2 : rp;
+  if (target && typeof target.scrollIntoView === 'function') {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    const y = (target ? (target.getBoundingClientRect().top + window.pageYOffset) : 0) - 16;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}, 120);
+    }
+
+    function proceedToAttendance() {
+      const nameInput = document.getElementById('guestNameInput');
+      const phoneInput = document.getElementById('phone');
+      const nameValue = (nameInput?.value || '').trim();
+
+      if (!nameValue) { alert('Please enter or select your name.'); return; }
+      if (!guestList[nameValue]) { alert('The name you entered is not on the guest list. Please select your name from the suggestions.'); return; }
+      if (!phoneInput?.value) { alert('Please enter your phone number.'); return; }
+
+      rsvpData.guestName = nameValue;
+      rsvpData.phone = phoneInput.value;
+      rsvpData.inviteGroup = guestList[nameValue];
+
+      switch (rsvpData.inviteGroup) {
+        case 'A': showPage('page4'); break;
+        case 'B': showPage('page6'); break;
+        case 'C': showPage('page7'); break;
+        default: showPage('page5');
+      }
+    }
+
+    function handleAttendance(eventType, answer) {
+      if (eventType === 'church') {
+        rsvpData.churchAttendance = answer;
+        rsvpData.dinnerAttendance = 'Not Applicable';
+      } else if (eventType === 'dinner') {
+        rsvpData.dinnerAttendance = answer;
+        rsvpData.churchAttendance = 'Not Applicable';
+      }
+
+      if (answer === 'Yes') {
+        showPage('page8');
+      } else {
+        rsvpData.bringingPlusOne = false;
+        rsvpData.plusOneName = null;
+        showPage('page5');
+      }
+    }
+
+    function handleGroupCAttendance() {
+      const selectEl = document.getElementById('attendanceOption');
+      if (!selectEl || !selectEl.value) { alert('Please select which events you can attend.'); return; }
+
+      switch (selectEl.value) {
+        case 'churchOnly':
+          rsvpData.churchAttendance = 'Yes';
+          rsvpData.dinnerAttendance = 'No';
+          break;
+        case 'dinnerOnly':
+          rsvpData.churchAttendance = 'No';
+          rsvpData.dinnerAttendance = 'Yes';
+          break;
+        case 'both':
+          rsvpData.churchAttendance = 'Yes';
+          rsvpData.dinnerAttendance = 'Yes';
+          break;
+      }
+      showPage('page8');
+    }
+
+    function handlePlusOne(bringing) {
+      rsvpData.bringingPlusOne = bringing;
+      if (bringing) showPage('page3');
+      else { rsvpData.plusOneName = null; showPage('page5'); }
+    }
+
+    function submitPlusOneDetails() {
+      const plusName = (document.getElementById('plusOneName')?.value || '').trim();
+      rsvpData.plusOneName = plusName ? plusName : null;
+      showPage('page5');
+    }
+
+    async function submitRSVP() {
+  const notesField = document.getElementById('notes');
+  rsvpData.notes = (notesField?.value || '').trim();
+  rsvpData.timestamp = new Date().toISOString();
+
+  const confirmation = document.getElementById('confirmation');
+
+  try {
+    await postToGoogleSheet(rsvpData);
+
+    updateStepper('done');
+    if (confirmation) {
+      confirmation.innerHTML = '<strong>Thank you!</strong> We’ve received your RSVP.';
+      confirmation.classList.remove('hidden');
+    }
+
+    console.log('RSVP Submission:', rsvpData);
+  } catch (err) {
+    if (confirmation) {
+      confirmation.innerHTML = '<strong>Oops.</strong> Failed to submit. Please try again.';
+      confirmation.classList.remove('hidden');
+    }
+    console.error(err);
+    alert("Submit failed: " + (err?.message || err));
+  }
+}
+
+// TODO: paste your deployed Apps Script WEB APP URL here (must end with /exec)
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzEEPI5nxzr3OGLdL4F1lidZTlIa0zlrkW5V07LjSxVjNYnpvcjcDHdCclQ8qRx0ovN/exec";
+
+async function postToGoogleSheet(payload) {
+  const formBody = new URLSearchParams();
+  formBody.append("data", JSON.stringify(payload));
+
+  // no-cors avoids CORS/preflight issues on Netlify/static hosting
+  await fetch(WEB_APP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: formBody
+  });
+}
+
+    document.addEventListener('DOMContentLoaded', () => {
+      populateGuestNames();
+      const btn = document.getElementById('rsvpBtn');
+      if (btn) btn.addEventListener('click', startGoing);
+    });
+  </script>
+
+
+<script id="CUSTOM_DROPDOWN_JS">
+  (function(){
+    function getNames(){
+      try{
+        if(typeof guestList !== 'undefined') return Object.keys(guestList);
+        if(window.guestList) return Object.keys(window.guestList);
+      }catch(e){}
+      return [];
+    }
+
+    function render(list){
+      const box = document.getElementById('nameSuggestions');
+      if(!box) return;
+      box.innerHTML = '';
+      if(!list || list.length === 0){
+        box.classList.add('hidden');
+        return;
+      }
+      list.slice(0, 30).forEach(name=>{
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.textContent = name;
+        div.setAttribute('role','option');
+        div.addEventListener('mousedown', function(e){
+          e.preventDefault();
+          const input = document.getElementById('guestNameInput');
+          if(input) input.value = name;
+          box.classList.add('hidden');
+        });
+        box.appendChild(div);
+      });
+      box.classList.remove('hidden');
+    }
+
+    function filter(q){
+      const names = getNames();
+      const qq = q.toLowerCase();
+      return names.filter(n => n.toLowerCase().includes(qq));
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      const input = document.getElementById('guestNameInput');
+      const box = document.getElementById('nameSuggestions');
+      if(!input || !box) return;
+
+      box.classList.add('hidden');
+
+      input.addEventListener('input', function(){
+        const q = (input.value || '').trim();
+        if(q.length < 2){
+          box.classList.add('hidden');
+          return;
+        }
+        render(filter(q));
+      });
+
+      input.addEventListener('focus', function(){
+        const q = (input.value || '').trim();
+        if(q.length < 2) box.classList.add('hidden');
+      });
+      input.addEventListener('click', function(){
+        const q = (input.value || '').trim();
+        if(q.length < 2) box.classList.add('hidden');
+      });
+
+      document.addEventListener('click', function(e){
+        if(e.target === input || box.contains(e.target)) return;
+        box.classList.add('hidden');
+      });
+    });
+  })();
+</script>
+
+
+<script>
+/* HARD FIX: anchor dropdown directly under Name input */
+document.addEventListener('DOMContentLoaded', function () {
+  const input = document.getElementById('guestNameInput');
+  const dropdown = document.getElementById('nameSuggestions');
+  if (!input || !dropdown) return;
+
+  // Create wrapper if missing
+  let wrap = input.closest('.input-wrap');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.className = 'input-wrap';
+    wrap.style.position = 'relative';
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(input);
+  }
+
+  // Move dropdown directly after input
+  wrap.appendChild(dropdown);
+});
+</script>
+
+</body>
+</html>
