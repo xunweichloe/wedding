@@ -1404,6 +1404,7 @@ body.layout-expanded #rightPane{
               <option value="churchOnly">I can attend Church Wedding only</option>
               <option value="dinnerOnly">I can attend Wedding Dinner only</option>
               <option value="both">I can attend both Church Wedding and Dinner</option>
+              <option value="none">I can’t attend both</option>
             </select>
           </div>
           <button class="button" onclick="handleGroupCAttendance()">Next</button>
@@ -1798,26 +1799,41 @@ setTimeout(() => {
       }
     }
 
-    function handleGroupCAttendance() {
-      const selectEl = document.getElementById('attendanceOption');
-      if (!selectEl || !selectEl.value) { alert('Please select which events you can attend.'); return; }
+   function handleGroupCAttendance() {
+  const selectEl = document.getElementById('attendanceOption');
+  if (!selectEl || !selectEl.value) {
+    alert('Please select which events you can attend.');
+    return;
+  }
 
-      switch (selectEl.value) {
-        case 'churchOnly':
-          rsvpData.churchAttendance = 'Yes';
-          rsvpData.dinnerAttendance = 'No';
-          break;
-        case 'dinnerOnly':
-          rsvpData.churchAttendance = 'No';
-          rsvpData.dinnerAttendance = 'Yes';
-          break;
-        case 'both':
-          rsvpData.churchAttendance = 'Yes';
-          rsvpData.dinnerAttendance = 'Yes';
-          break;
-      }
-      showPage('page8');
-    }
+  switch (selectEl.value) {
+    case 'churchOnly':
+      rsvpData.churchAttendance = 'Yes';
+      rsvpData.dinnerAttendance = 'No';
+      showPage('page8'); // +1 question
+      break;
+
+    case 'dinnerOnly':
+      rsvpData.churchAttendance = 'No';
+      rsvpData.dinnerAttendance = 'Yes';
+      showPage('page8'); // +1 question
+      break;
+
+    case 'both':
+      rsvpData.churchAttendance = 'Yes';
+      rsvpData.dinnerAttendance = 'Yes';
+      showPage('page8'); // +1 question
+      break;
+
+    case 'none':
+      rsvpData.churchAttendance = 'No';
+      rsvpData.dinnerAttendance = 'No';
+      rsvpData.bringingPlusOne = false;
+      rsvpData.plusOneName = null;
+      showPage('page5'); // skip +1, go straight to notes
+      break;
+  }
+}
 
     function handlePlusOne(bringing) {
       rsvpData.bringingPlusOne = bringing;
