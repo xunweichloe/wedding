@@ -1419,7 +1419,7 @@ body.layout-expanded #rightPane{
             <label for="notes">Any notes you want to leave to the couple?</label>
             <textarea id="notes" rows="4" placeholder="Write your message here..."></textarea>
           </div>
-          <button class="button" onclick="submitRSVP()">Submit RSVP</button>
+          <button id="submitBtn" class="button" onclick="submitRSVP()">Submit RSVP</button>
           <div id="confirmation" class="success-message hidden"></div>
         </div>
       </div>
@@ -1582,6 +1582,7 @@ body.layout-expanded #rightPane{
 
     // Back history stack
     let pageHistory = [];
+    let isSubmitting = false;
 
     function populateGuestNames() {
       const list = document.getElementById('guestNames');
@@ -1738,6 +1739,7 @@ nextPage.style.animation = 'none';
         notes: null
       };
       pageHistory = [];
+      isSubmitting = false;
       expandLayout();
       updateStepper('page2');
       showPage('page2', true);
@@ -1829,19 +1831,28 @@ setTimeout(() => {
       showPage('page5');
     }
 
-    async function submitRSVP() {
+   async function submitRSVP() {
+  if (isSubmitting) return;                 // prevent double submit
+  isSubmitting = true;
+
+  const submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+  }
+
   const notesField = document.getElementById('notes');
   rsvpData.notes = (notesField?.value || '').trim();
-rsvpData.timestamp = new Date().toLocaleString("en-MY", {
-  timeZone: "Asia/Kuala_Lumpur",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: false
-});
+  rsvpData.timestamp = new Date().toLocaleString("en-MY", {
+    timeZone: "Asia/Kuala_Lumpur",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
 
   const confirmation = document.getElementById('confirmation');
 
@@ -1854,7 +1865,13 @@ rsvpData.timestamp = new Date().toLocaleString("en-MY", {
       confirmation.classList.remove('hidden');
     }
 
+    if (submitBtn) submitBtn.textContent = 'Submitted';
+
     console.log('RSVP Submission:', rsvpData);
+
+    // keep locked after success
+    isSubmitting = true;
+
   } catch (err) {
     if (confirmation) {
       confirmation.innerHTML = '<strong>Oops.</strong> Failed to submit. Please try again.';
@@ -1862,9 +1879,16 @@ rsvpData.timestamp = new Date().toLocaleString("en-MY", {
     }
     console.error(err);
     alert("Submit failed: " + (err?.message || err));
+
+    // unlock so they can retry
+    isSubmitting = false;
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit RSVP';
+    }
   }
 }
-
+    
 // TODO: paste your deployed Apps Script WEB APP URL here (must end with /exec)
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzEEPI5nxzr3OGLdL4F1lidZTlIa0zlrkW5V07LjSxVjNYnpvcjcDHdCclQ8qRx0ovN/exec";
 
