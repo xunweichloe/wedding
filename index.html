@@ -1422,11 +1422,13 @@ body.layout-expanded #rightPane{
           </div>
           <button id="submitBtn" class="button" onclick="submitRSVP()">Submit RSVP</button>
           <div id="confirmation" class="success-message hidden"></div>
+          <div id="resubmitContainer" class="hidden" style="margin-top: 16px;">
+  <button type="button" class="button" onclick="restartRSVP()">Submit another response</button>
+</div>
         </div>
       </div>
     </div>
   </div>
-
   
   <script>
     /*
@@ -1740,7 +1742,18 @@ nextPage.style.animation = 'none';
         notes: null
       };
       pageHistory = [];
-      isSubmitting = false;
+       // Hide confirmation & resubmit button when starting fresh
+  const resubmitBox = document.getElementById('resubmitContainer');
+  if (resubmitBox) resubmitBox.classList.add('hidden');
+
+  const confirmation = document.getElementById('confirmation');
+  if (confirmation) {
+    confirmation.classList.add('hidden');
+    confirmation.innerHTML = '';
+  }
+
+  // Reset submit lock
+  isSubmitting = false;
       expandLayout();
       updateStepper('page2');
       showPage('page2', true);
@@ -1880,6 +1893,8 @@ setTimeout(() => {
       confirmation.innerHTML = '<strong>Thank you!</strong> We’ve received your RSVP.';
       confirmation.classList.remove('hidden');
     }
+    const resubmitBox = document.getElementById('resubmitContainer');
+if (resubmitBox) resubmitBox.classList.remove('hidden');
 
     if (submitBtn) submitBtn.textContent = 'Submitted';
 
@@ -1903,6 +1918,31 @@ setTimeout(() => {
       submitBtn.textContent = 'Submit RSVP';
     }
   }
+}
+
+    function restartRSVP() {
+  // reset submit lock
+  isSubmitting = false;
+
+  // reset submit button
+  const submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit RSVP';
+  }
+
+  // hide confirmation + resubmit UI
+  const confirmation = document.getElementById('confirmation');
+  if (confirmation) {
+    confirmation.classList.add('hidden');
+    confirmation.innerHTML = '';
+  }
+
+  const resubmitBox = document.getElementById('resubmitContainer');
+  if (resubmitBox) resubmitBox.classList.add('hidden');
+
+  // go back to intro screen
+  collapseLayout();
 }
     
 // TODO: paste your deployed Apps Script WEB APP URL here (must end with /exec)
