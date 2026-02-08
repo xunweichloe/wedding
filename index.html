@@ -1421,9 +1421,6 @@ body.layout-expanded #rightPane{
           </div>
           <button id="submitBtn" class="button" onclick="submitRSVP()">Submit RSVP</button>
           <div id="confirmation" class="success-message hidden"></div>
-          <div id="resubmitContainer" class="hidden" style="margin-top: 16px;">
-  <button class="button" onclick="restartRSVP()">Submit another response</button>
-</div>
         </div>
       </div>
     </div>
@@ -1728,30 +1725,6 @@ nextPage.style.animation = 'none';
       const prev = pageHistory.pop();
       showPage(prev, true);
     }
-    
-function restartRSVP() {
-  // Reset submit lock
-  isSubmitting = false;
-
-  // Clear confirmation & button
-  const confirmation = document.getElementById('confirmation');
-  const resubmitBox = document.getElementById('resubmitContainer');
-  if (confirmation) {
-    confirmation.classList.add('hidden');
-    confirmation.innerHTML = '';
-  }
-  if (resubmitBox) resubmitBox.classList.add('hidden');
-
-  // Reset submit button text/state
-  const submitBtn = document.getElementById('submitBtn');
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit RSVP';
-  }
-
-  // Restart flow
-  collapseLayout();   // go back to intro
-}
 
     function startGoing() {
       // Reset RSVP data
@@ -1891,8 +1864,6 @@ setTimeout(() => {
       confirmation.innerHTML = '<strong>Thank you!</strong> We’ve received your RSVP.';
       confirmation.classList.remove('hidden');
     }
-    const resubmitBox = document.getElementById('resubmitContainer');
-if (resubmitBox) resubmitBox.classList.remove('hidden');
 
     if (submitBtn) submitBtn.textContent = 'Submitted';
 
