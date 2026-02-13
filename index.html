@@ -1862,6 +1862,32 @@ if (resubmitBox) resubmitBox.classList.remove('hidden');
   const resubmitBox = document.getElementById('resubmitContainer');
   if (resubmitBox) resubmitBox.classList.add('hidden');
 
+  // --- CLEAR ALL FILLED SECTIONS (fields + selections) ---
+
+  // 1) Guest name + phone
+  const nameInput = document.getElementById('guestNameInput');
+  if (nameInput) nameInput.value = '';
+  const phoneInput = document.getElementById('phone');
+  if (phoneInput) phoneInput.value = '';
+
+  // 2) +1 name
+  const plusOneInput = document.getElementById('plusOneName');
+  if (plusOneInput) plusOneInput.value = '';
+
+  // 3) Notes
+  const notesField = document.getElementById('notes');
+  if (notesField) notesField.value = '';
+
+  // 4) Group C dropdown (church/dinner/both/none)
+  const attendanceOption = document.getElementById('attendanceOption');
+  if (attendanceOption) attendanceOption.selectedIndex = 0; // back to "Select one..."
+
+  // 5) Clear radio selection for +1 question (Yes/No hearts)
+  document.querySelectorAll('input[name="plusOneQuestion"]').forEach(r => r.checked = false);
+
+  // 6) (Optional) clear any visual state you might add later
+  // If you add "selected" classes on buttons in the future, remove them here.
+      
   // go back to intro screen
   collapseLayout();
 }
